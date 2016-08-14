@@ -22,7 +22,6 @@ It may happens - and crap, it happens - that sometimes we just screw up permissi
 Long story short: what made me make this was basically a cool **chmod -R 775 /** fired by _a friend of mine_ on a test server
 making it unreachable and probably unusable.
 
-
 <p align="right"><a href="#top">:arrow_up:</a></p>
 
 ## Features
@@ -31,37 +30,41 @@ No more than what have been already said:
 - **Recursively searches inside the target directory and save every file permissions (owner and group included)**
 - **Runs on both Unix and OSX**
 
+<p align="right"><a href="#top">:arrow_up:</a></p>
+
 ## Installation
 
 Quite easy.
 
 Clone the repository, enter the folder via a shell, and run:
 
-	```console
-    # python2.7 main.py -h
-	```
+```console
+# python2.7 main.py -h
+```
     
 **Please note that if You want to store root files/folders permissions You probably want to run the script as root**
+
+<p align="right"><a href="#top">:arrow_up:</a></p>
 
 ## Examples
 
 Make a backup of the Documents folder
 
-	```console
-    # python2.7 main.py /Users/jack/Documents/
-	```
+```console
+# python2.7 main.py /Users/jack/Documents/
+```
 	
 Make a backup of the Documents folder with some optional parameters
 
-	```console
-    # python2.7 main.py /Users/jack/Documents/ --out /Users/jack/pRestoreBackups --threads 15
-	```
+```console
+# python2.7 main.py /Users/jack/Documents/ --out /Users/jack/pRestoreBackups --threads 15
+```
 	
 Restore permissions from a saved backup
 
-    ```console
-    # python2.7 main.py /Users/jack/pRestoreBackups/1471187539.67_prestore.list --restore
-    ```
+```console
+# python2.7 main.py /Users/jack/pRestoreBackups/1471187539.67_prestore.list --restore
+```
 
 <p align="right"><a href="#top">:arrow_up:</a></p>
 
