@@ -1,45 +1,31 @@
-from worker import Worker
-from writer import Writer
-from Queue import Queue
+import argparse
 
+from pRestore.backup import Backup
+from pRestore.stuff import Stuff
 
-class MainClass():
-    def __init__(self):
-        THREADS_LIMIT = 5
-        self.queue = Queue()
-        self.writer = Writer()
-        self.writer.start()
-        self.threads = []
-        worker = Worker('/', self)
-        self.threads.append(worker)
-        worker.start()
+Stuff.print_logo()
 
-        while len(self.threads) > 0 or self.queue.qsize() > 0:
-            if len(self.threads) < THREADS_LIMIT:
-                new_dir = self.queue.get()
-                thread = Worker(new_dir, self)
-                self.threads.append(thread)
-                thread.start()
+description = 'pRestore is a software used to make backup of file permissions and restore them in case of disaster'
 
-        while self.writer.queue.qsize() > 0:
-            pass
+parser = argparse.ArgumentParser(description=description)
+parser.add_argument('target', metavar='D', type=str, nargs=1, help='Target directory/Restore file')
+parser.add_argument('--backup', dest='backup', action='store_const', const=True, default=False,
+                    help='Make a backup of the target directory')
+parser.add_argument('--restore', dest='restore', action='store_const', const=True, default=False,
+                    help='Restore permissions from the target backup file')
+parser.add_argument('--out', help='Output directory where to store the backup', default='.')
+parser.add_argument('--threads', default=10,
+                    help='The maximum number of threads that will be used for making the backup')
 
-        self.writer.got_to_run = False
+arguments = parser.parse_args()
 
-        print "Done"
+target = arguments.target[0]
+backup = arguments.backup
+restore = arguments.restore
+out = arguments.out
+threads = arguments.threads
 
-    def on_thread_finished(self, thread):
-        try:
-            self.threads.remove(thread)
-        except:
-            pass
-
-    def add_to_queue(self, directory):
-        self.queue.put(directory + '/')
-
-    def write(self, file):
-        self.writer.add(file)
-
-
-if __name__ == '__main__':
-    MainClass()
+if restore:
+    pass
+else:
+    Backup(target, out, threads)
