@@ -1,7 +1,7 @@
 import argparse
-
-from pRestore.backup import Backup
 from pRestore.stuff import Stuff
+from pRestore.backup import  Backup
+from pRestore.restore import Restore
 
 Stuff.print_logo()
 
@@ -15,7 +15,9 @@ parser.add_argument('--restore', dest='restore', action='store_const', const=Tru
                     help='Restore permissions from the target backup file')
 parser.add_argument('--out', help='Output directory where to store the backup', default='.')
 parser.add_argument('--threads', default=10,
-                    help='The maximum number of threads that will be used for making the backup')
+                    help='The maximum number of threads that will be used for making the backup or restoring permissions')
+parser.add_argument('--verbose', dest='verbose', action='store_const', default=False, const=True,
+                    help='Display more detailed information about what the script is doing')
 
 arguments = parser.parse_args()
 
@@ -24,8 +26,9 @@ backup = arguments.backup
 restore = arguments.restore
 out = arguments.out
 threads = arguments.threads
+verbose = arguments.verbose
 
 if restore:
-    pass
+    Restore(target, threads, verbose)
 else:
-    Backup(target, out, threads)
+    Backup(target, out, threads, verbose)

@@ -1,7 +1,7 @@
 import re
 
 
-class File():
+class File:
     def __init__(self, line):
         self.permissions = ''
         self.first_char = ''

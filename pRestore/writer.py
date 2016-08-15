@@ -3,14 +3,7 @@ import tarfile
 from Queue import Queue
 from threading import Thread
 from time import time
-
-
-class NotAFolder(Exception):
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return repr(self.value)
+from stuff import NotAFolder
 
 
 class Writer(Thread):
@@ -56,7 +49,7 @@ class Writer(Thread):
         self.file.close()
         self.tar = tarfile.open(self.out + str(time()) + '_prestore.list', 'w:bz2')
         for f in self.file_list:
-            self.tar.add('/tmp/prestore_' + str(f))
+            self.tar.add('/tmp/prestore_' + str(f), arcname='prestore_' + str(f))
         self.tar.close()
         os.remove('/tmp/prestore_' + str(self.index))
 

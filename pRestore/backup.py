@@ -3,8 +3,8 @@ from writer import Writer
 from Queue import Queue
 
 
-class Backup():
-    def __init__(self, target, out, threads):
+class Backup:
+    def __init__(self, target, out, threads, verbose):
         if target[-1] != '/':
             target += '/'
         self.THREADS_LIMIT = threads
