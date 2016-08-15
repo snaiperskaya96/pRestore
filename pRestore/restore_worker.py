@@ -8,7 +8,8 @@ class Worker(Thread):
         Thread.__init__(self)
         self.done = False
         self.verbose = verbose
-        self.file = open(file_path, 'r')
+        self.path = file_path
+        self.file = open(self.path, 'r')
 
     def run(self):
         content = self.file.read().split('\n')

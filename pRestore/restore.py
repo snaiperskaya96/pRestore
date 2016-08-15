@@ -48,6 +48,9 @@ class Restore:
 
         for thread in self.threads:
             thread.join()
+            os.remove(thread.path)
+
+        os.rmdir(self.extract_path)
 
         print 'Done'
 
